@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodeAlpha — Phishing Awareness & Security Training</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #0B0F19;
+      --bg-card: #131B2E;
+      --bg-card-alt: #1A243B;
+      --accent-cyan: #00F5FF;
+      --accent-blue: #3B82F6;
+      --accent-red: #EF4444;
+      --accent-green: #10B981;
+      --accent-yellow: #F59E0B;
+      --text-main: #F3F4F6;
+      --text-muted: #9CA3AF;
+      --border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header / Hero */
+    header {
+      background: radial-gradient(circle at top right, rgba(0, 245, 255, 0.08), transparent 45%),
+                  radial-gradient(circle at top left, rgba(59, 130, 246, 0.12), transparent 45%),
+                  #0E1424;
+      border-bottom: 1px solid var(--border-color);
+      padding: 55px 0 40px;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      background: rgba(0, 245, 255, 0.12);
+      color: var(--accent-cyan);
+      border: 1px solid rgba(0, 245, 255, 0.25);
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, #FFFFFF, #93C5FD);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 720px;
+      margin: 0 auto 28px;
+    }
+
+    /* Nav Tabs */
+    .nav-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .tab-btn {
+      background: var(--bg-card);
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
+      padding: 10px 22px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-size: 0.95rem;
+    }
+
+    .tab-btn:hover {
+      background: var(--bg-card-alt);
+      color: #FFF;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .tab-btn.active {
+      background: var(--accent-blue);
+      color: #FFF;
+      border-color: var(--accent-blue);
+      box-shadow: 0 4px 16px rgba(59, 130, 246, 0.35);
+    }
+
+    /* Section content */
+    .section-content {
+      display: none;
+      padding: 48px 0 80px;
+      animation: fadeIn 0.35s ease forwards;
+    }
+
+    .section-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .section-desc {
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      font-size: 1.05rem;
+    }
+
+    /* Card Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 26px;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(0, 245, 255, 0.3);
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 14px;
+      display: inline-block;
+    }
+
+    .card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+      color: #FFFFFF;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 14px;
+    }
+
+    .pill {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--accent-cyan);
+    }
+
+    /* Email Inspector Mockup */
+    .email-mockup {
+      background: #1E293B;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 24px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+      margin-bottom: 32px;
+    }
+
+    .email-header-row {
+      display: flex;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+    }
+
+    .email-label {
+      width: 90px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .email-val {
+      color: #E2E8F0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+    }
+
+    .flag-highlight {
+      background: rgba(239, 68, 68, 0.22);
+      border: 1px dashed var(--accent-red);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #FCA5A5;
+      font-weight: 600;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .email-body {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 1rem;
+      color: #CBD5E1;
+      line-height: 1.8;
+    }
+
+    .fake-btn {
+      display: inline-block;
+      margin: 18px 0;
+      background: #2563EB;
+      color: white;
+      padding: 10px 22px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* Quiz Component */
+    .quiz-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .quiz-progress {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .quiz-scenario {
+      background: #0F172A;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 24px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      white-space: pre-line;
+    }
+
+    .quiz-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    .btn-action {
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+
+    .btn-phish {
+      background: #EF4444;
+      color: white;
+    }
+
+    .btn-phish:hover {
+      background: #DC2626;
+      box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4);
+    }
+
+    .btn-safe {
+      background: #10B981;
+      color: white;
+    }
+
+    .btn-safe:hover {
+      background: #059669;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+    }
+
+    .feedback-box {
+      margin-top: 24px;
+      padding: 18px;
+      border-radius: 10px;
+      display: none;
+      font-size: 0.98rem;
+    }
+
+    .feedback-box.correct {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid var(--accent-green);
+      color: #A7F3D0;
+    }
+
+    .feedback-box.incorrect {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid var(--accent-red);
+      color: #FECACA;
+    }
+
+    .btn-next {
+      margin-top: 18px;
+      padding: 10px 24px;
+      background: var(--accent-blue);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      display: none;
+    }
+
+    /* Checklist */
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 16px 20px;
+      border-radius: 10px;
+    }
+
+    .check-icon {
+      color: var(--accent-green);
+      font-size: 1.3rem;
+      line-height: 1;
+    }
+
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding: 30px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="badge">CodeAlpha Cyber Security Internship • Task 2</div>
+      <h1>Phishing Awareness & Defense Training</h1>
+      <p class="subtitle">
+        Empowering users to recognize social engineering vectors, inspect deceptive indicators, and mitigate modern cyber threats.
+      </p>
+
+      <div class="nav-tabs">
+        <button class="tab-btn active" onclick="switchTab('overview')">1. Phishing Vectors</button>
+        <button class="tab-btn" onclick="switchTab('anatomy')">2. Email Red Flags</button>
+        <button class="tab-btn" onclick="switchTab('websites')">3. Deceptive Websites</button>
+        <button class="tab-btn" onclick="switchTab('quiz')">4. Interactive Challenge</button>
+        <button class="tab-btn" onclick="switchTab('bestpractices')">5. Best Practices</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- TAB 1: OVERVIEW & ATTACK VECTORS -->
+    <section id="overview" class="section-content active">
+      <h2 class="section-title">Common Phishing Vectors</h2>
+      <p class="section-desc">Phishing is the fraudulent attempt to obtain sensitive information or deploy malicious payloads by impersonating a trustworthy entity.</p>
+
+      <div class="grid">
+        <div class="card">
+          <div class="card-icon">📧</div>
+          <span class="pill">Mass Distribution</span>
+          <h3>Standard Email Phishing</h3>
+          <p>Mass-distributed deceptive emails disguised as notifications from well-known institutions (banks, shipping providers, cloud vendors) aimed at harvesting login credentials or banking data.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🎯</div>
+          <span class="pill">Targeted Attack</span>
+          <h3>Spear Phishing</h3>
+          <p>Tailored and customized attacks aimed at a specific individual or organization. Attackers leverage OSINT (Open Source Intelligence) from LinkedIn and company directories to appear authentic.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">👑</div>
+          <span class="pill">High-Value Target</span>
+          <h3>Whaling (Executive Fraud)</h3>
+          <p>Phishing attempts targeting C-level executives, finance managers, or VIPs to initiate fraudulent wire transfers (Business Email Compromise - BEC) or expose confidential corporate records.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">📱</div>
+          <span class="pill">Mobile / SMS</span>
+          <h3>Smishing (SMS Phishing)</h3>
+          <p>Deceptive SMS messages urging users to click malicious shortened links (e.g., fake package delivery tracking, bank fraud warnings, or tax refund alerts).</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">📞</div>
+          <span class="pill">Voice Phishing</span>
+          <h3>Vishing</h3>
+          <p>Fraudulent phone calls or automated voice systems impersonating bank fraud departments or tech support to manipulate victims into revealing 2FA codes or granting remote device access.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">📑</div>
+          <span class="pill">Replica Attack</span>
+          <h3>Clone Phishing</h3>
+          <p>Attackers clone a legitimate email previously received by the victim, substituting authentic attachments or links with malicious ones and claiming it to be an "updated version".</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: ANATOMY OF A PHISHING EMAIL -->
+    <section id="anatomy" class="section-content">
+      <h2 class="section-title">Anatomy of a Phishing Email</h2>
+      <p class="section-desc">Inspect this simulated attack email. Highlighted boxes reveal the primary red flags cyber analysts check for.</p>
+
+      <div class="email-mockup">
+        <div class="email-header-row">
+          <span class="email-label">From:</span>
+          <span class="email-val">IT Support &lt;helpdesk@<span class="flag-highlight" title="Spoofed Domain">micros0ft-security-auth.net</span>&gt;</span>
+        </div>
+        <div class="email-header-row">
+          <span class="email-label">To:</span>
+          <span class="email-val">employee@company.com</span>
+        </div>
+        <div class="email-header-row">
+          <span class="email-label">Subject:</span>
+          <span class="email-val"><span class="flag-highlight" title="Artificial Urgency & Fear Appeal">[URGENT] Your Password Expires in 2 Hours!</span></span>
+        </div>
+
+        <div class="email-body">
+          <p>Dear Valued User,</p>
+          <br>
+          <p>We detected unauthorized login attempts from an unknown device in Moscow, Russia. Your enterprise account has been flagged for immediate suspension.</p>
+          <br>
+          <p>To retain access to your mailbox and shared corporate files, you must verify your identity and update your password immediately within the next <strong>120 minutes</strong>.</p>
+          <br>
+          <a href="#" class="fake-btn" onclick="alert('Hover target: http://192.168.1.100/login.php?ref=steal - The displayed button text does NOT match the destination URL!'); return false;">Update My Password Now</a>
+          <br>
+          <small style="color: var(--accent-red);">⚠️ Hovering reveals actual destination: <code>http://192.168.1.100/login.php?ref=steal</code></small>
+          <br><br>
+          <p>Failure to respond will lead to permanent account termination.</p>
+          <br>
+          <p>Best Regards,<br>Microsoft Global Security Center</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h3>🚨 1. Sender Spoofing & Lookalikes</h3>
+          <p>Notice the domain <code>micros0ft-security-auth.net</code> uses the number '0' instead of 'o' (Typosquatting) and is completely unaffiliated with Microsoft's official domain.</p>
+        </div>
+        <div class="card">
+          <h3>🚨 2. Artificial Sense of Urgency</h3>
+          <p>Phrases like <em>"Expires in 2 Hours"</em> or <em>"Account Terminated"</em> induce panic, short-circuiting critical thinking and rushing the victim into complying.</p>
+        </div>
+        <div class="card">
+          <h3>🚨 3. Mismatched Hyperlinks</h3>
+          <p>Always inspect hyperlinks prior to clicking. The button displays a legitimate action, but directs to an arbitrary IP address or malicious credential harvester.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: DECEPTIVE WEBSITES -->
+    <section id="websites" class="section-content">
+      <h2 class="section-title">Spotting Deceptive & Fake Websites</h2>
+      <p class="section-desc">Attackers build pixel-perfect clones of login portals. Here is how to distinguish clones from authentic domains.</p>
+
+      <div class="grid">
+        <div class="card">
+          <div class="card-icon">🔍</div>
+          <h3>Typosquatting & Combosquatting</h3>
+          <p>Attackers register domain names intentionally misspelled or appended with keywords:
+            <br><br>
+            • <code>paypal-verification-center.com</code> (Fake)<br>
+            • <code>netfIix.com</code> (Using capital 'I' for lowercase 'l')<br>
+            • <code>apple-support-id88.net</code> (Fake)
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🔒</div>
+          <h3>The "HTTPS = Safe" Fallacy</h3>
+          <p>A padlock icon / HTTPS only indicates that transmission is encrypted; it <strong>does not guarantee</strong> the destination is legitimate. Over 80% of phishing sites today use free SSL certificates (Let's Encrypt).</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🌐</div>
+          <h3>Punycode (Homograph Attacks)</h3>
+          <p>Attackers exploit internationalized domain names (IDN) with lookalike Cyrillic or Greek characters. A character like Cyrillic <code>а</code> looks identical to Latin <code>a</code>, but translates to <code>xn--...</code> in browser address bars.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: INTERACTIVE QUIZ -->
+    <section id="quiz" class="section-content">
+      <h2 class="section-title">Interactive Challenge: Spot the Phish</h2>
+      <p class="section-desc">Analyze each scenario below and determine whether it is a legitimate communication or a malicious phishing attempt.</p>
+
+      <div class="quiz-card">
+        <div class="quiz-progress">
+          <span id="quiz-question-num" style="font-weight: 700; color: var(--accent-cyan);">Question 1 of 4</span>
+          <span id="quiz-score" style="font-weight: 600; color: var(--accent-green);">Score: 0 / 0</span>
+        </div>
+
+        <div id="quiz-scenario-box" class="quiz-scenario">
+          <!-- Populated by JS -->
+        </div>
+
+        <div class="quiz-actions" id="quiz-action-buttons">
+          <button class="btn-action btn-phish" onclick="answerQuiz(true)">🚨 Phishing</button>
+          <button class="btn-action btn-safe" onclick="answerQuiz(false)">✅ Legitimate</button>
+        </div>
+
+        <div id="quiz-feedback" class="feedback-box"></div>
+        <center>
+          <button id="quiz-next-btn" class="btn-next" onclick="nextQuestion()">Next Scenario →</button>
+        </center>
+      </div>
+    </section>
+
+    <!-- TAB 5: BEST PRACTICES -->
+    <section id="bestpractices" class="section-content">
+      <h2 class="section-title">Defense Strategy & Best Practices</h2>
+      <p class="section-desc">Implement these defensive measures across personal and corporate environments to neutralize social engineering threats.</p>
+
+      <div class="checklist-item">
+        <div class="check-icon">✓</div>
+        <div>
+          <h4>Enforce Multi-Factor Authentication (MFA / 2FA)</h4>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">Always enforce FIDO2 / WebAuthn hardware keys or authenticator apps (TOTP). Avoid SMS-based 2FA where possible due to SIM swapping and SS7 intercept risks.</p>
+        </div>
+      </div>
+
+      <div class="checklist-item">
+        <div class="check-icon">✓</div>
+        <div>
+          <h4>Implement Email Authentication Protocols (SPF, DKIM, DMARC)</h4>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">Organizations should configure <code>DMARC p=reject</code> policies alongside SPF and cryptographic DKIM records to prevent unauthorized servers from spoofing company domains.</p>
+        </div>
+      </div>
+
+      <div class="checklist-item">
+        <div class="check-icon">✓</div>
+        <div>
+          <h4>Bookmark Official Portals & Type URLs Directly</h4>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">Never navigate to sensitive banking, email, or cloud infrastructure logins directly from email links. Always use browser bookmarks or type verified URLs manually.</p>
+        </div>
+      </div>
+
+      <div class="checklist-item">
+        <div class="check-icon">✓</div>
+        <div>
+          <h4>Out-of-Band Verification for Financial & Sensitive Requests</h4>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">If a manager or vendor requests an emergency invoice payment or wire transfer change, verify via a secondary, known phone number before proceeding.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <div class="container">
+      CodeAlpha Cyber Security Internship • Project Submission • Designed for Awareness & Education
+    </div>
+  </footer>
+
+  <script>
+    // Tab switching logic
+    function switchTab(tabId) {
+      document.querySelectorAll('.section-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+      document.getElementById(tabId).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    // Quiz Questions Data
+    const questions = [
+      {
+        scenario: `FROM: security-alerts@paypa1-update.com\nSUBJECT: Suspicious transaction detected!\n\nDear Customer,\nA payment of $499.00 to CryptoTrade Ltd is pending. If you did not authorize this, click here to cancel immediately:\nhttp://paypa1-update.com/cancel-dispute?id=89234`,
+        isPhish: true,
+        explanation: "🚨 PHISHING: The domain uses 'paypa1' with a number '1' instead of the letter 'l' (typosquatting), creates urgency with a fake crypto charge, and directs to an unverified non-SSL HTTP link."
+      },
+      {
+        scenario: `FROM: no-reply@accounts.google.com\nSUBJECT: Security alert: New sign-in from Chrome on Windows\n\nHi Alex,\nYour Google Account was just accessed from a new Windows device in Chicago, IL.\nIf this was you, you don't need to do anything. If this wasn't you, review your devices at: https://myaccount.google.com/device-activity`,
+        isPhish: false,
+        explanation: "✅ LEGITIMATE: Sent from Google's verified accounts domain (@accounts.google.com), uses standard non-alarmist language, and links directly to the official Google Account management portal."
+      },
+      {
+        scenario: `FROM: hr-benefits@internal-corporate.com (Via external mail relay)\nSUBJECT: Updated 2026 Bonus Structure\nATTACHMENT: 2026_Bonus_Calculations.xlsx.exe\n\nPlease find attached the company-wide bonus update for this quarter. Enable macros upon opening to view your personalized chart.`,
+        isPhish: true,
+        explanation: "🚨 PHISHING / MALWARE: Double file extension (.xlsx.exe) disguising an executable file as a spreadsheet, accompanied by a prompt to enable macros (classic trojan dropper tactic)."
+      },
+      {
+        scenario: `FROM: ceo.name@gmail.com\nSUBJECT: Quick Favor - Need Apple Gift Cards\n\nHey, I am currently in a board meeting and cannot take calls. I need you to purchase 5x $100 Apple gift cards for a client presentation. Email the redemption codes back to me ASAP.`,
+        isPhish: true,
+        explanation: "🚨 PHISHING (BEC / WHALING): The sender uses an external personal Gmail account rather than the official company domain, fabricates an emergency excuse ('in a board meeting'), and requests untraceable gift cards."
+      }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+    let answered = false;
+
+    function renderQuestion() {
+      answered = false;
+      const q = questions[currentQ];
+      document.getElementById('quiz-question-num').innerText = `Question ${currentQ + 1} of ${questions.length}`;
+      document.getElementById('quiz-scenario-box').innerText = q.scenario;
+      document.getElementById('quiz-feedback').style.display = 'none';
+      document.getElementById('quiz-next-btn').style.display = 'none';
+      document.getElementById('quiz-action-buttons').style.display = 'flex';
+    }
+
+    function answerQuiz(userGuess) {
+      if (answered) return;
+      answered = true;
+      const q = questions[currentQ];
+      const feedback = document.getElementById('quiz-feedback');
+      const isCorrect = (userGuess === q.isPhish);
+
+      if (isCorrect) {
+        score++;
+        feedback.className = "feedback-box correct";
+        feedback.innerHTML = `<strong>Correct!</strong> ${q.explanation}`;
+      } else {
+        feedback.className = "feedback-box incorrect";
+        feedback.innerHTML = `<strong>Incorrect.</strong> ${q.explanation}`;
+      }
+
+      feedback.style.display = 'block';
+      document.getElementById('quiz-score').innerText = `Score: ${score} / ${currentQ + 1}`;
+      document.getElementById('quiz-next-btn').style.display = 'inline-block';
+      document.getElementById('quiz-action-buttons').style.display = 'none';
+    }
+
+    function nextQuestion() {
+      currentQ++;
+      if (currentQ < questions.length) {
+        renderQuestion();
+      } else {
+        // Finished
+        document.getElementById('quiz-scenario-box').innerHTML = `<h3>🎉 Challenge Completed!</h3><p style='margin-top: 10px;'>Your final score: <strong>${score} / ${questions.length}</strong> (${Math.round((score / questions.length) * 100)}%)</p>`;
+        document.getElementById('quiz-feedback').style.display = 'none';
+        document.getElementById('quiz-next-btn').style.display = 'none';
+        document.getElementById('quiz-action-buttons').style.display = 'none';
+      }
+    }
+
+    // Initialize first question
+    renderQuestion();
+  </script>
+</body>
+</html>
